@@ -50,6 +50,7 @@ export default {
 .input-block {
 
     &_disable {
+    
         input {
             pointer-events: none;
         }
