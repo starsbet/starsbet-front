@@ -1,0 +1,99 @@
+{
+    "lobby": {
+        "comingSoon": "Coming soon...",
+        "casino": "Casino",
+        "sport": "Sport"
+    },
+    "affilate": {
+        "title": "affilate",
+        "referral": "Referral link",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "registered": "The number of registered users",
+        "firstTimeDep": "First time deposits",
+        "wager": "Wager",
+        "commissionE": "Commission Earned",
+        "commissionP": "Commission Paid",
+        "commissionA": "Commission available for withdrawal",
+        "withdrawal": "withdrawal"
+    },
+    "depo": {
+        "amountTitle": "enter or select the top-up amount",
+        "amountStars": "telegram stars",
+        "amountCrypto": "cryptocurrency",
+        "amountBank": "Bank card",
+        "amountError": "Invalid amount!",
+        "detailsTitle": "enter your details",
+        "detailsText": "Important! Please provide the actual cardholder details, this will ensure quick replenishment of the account. If the specified details are different, the payment may take longer to process.",
+        "detailsOwner": "Card owner*",
+        "detailsButton": "Next",
+        "detailsError": "Invalid card owner!",
+        "bankInput1": "Replenishment amount",
+        "bankInput2": "Select bank for transfer",
+        "crypto": "Select the deposit currency"
+    },
+    "games": {
+        "onWin": "On Win",
+        "onLoss": "On Loss",
+        "reset": "Reset",
+        "stopOnProfit": "Stop on Profit",
+        "stopOnLoss": "Stop on Loss",
+        "amountError": "Invalid amount!",
+        "diceManual": "Manual",
+        "diceAuto": "Auto",
+        "diceRollOver": "Roll over",
+        "diceRollUnder": "Roll under",
+        "diceWinChance": "Win chance",
+        "diceNumbersOfBets": "Numbers of Bets",
+        "diceBetAmount": "Bet Amount",
+        "diceStartAutoBet": "Start AutoBet",
+        "diceStopAutoBet": "Stop AutoBet",
+        "diceAutobetStarted": "Autobet started",
+        "diceAutobetFinished": "Autobet finished",
+        "diceBet": "Bet",
+        "diceError": "Can't bet more than your balance"
+
+    },
+    "leaderboard": {
+        "title": "leaderboard",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "monthly": "Monthly",
+        "wager": "Wager"
+    },
+    "popups": {
+        "attentionTitle": "ATTENTION",
+        "attentionText": "Please enter the amount you would like to withdraw",
+        "attentionButton": "withdraw",
+        "attentionSuccess": "Your application has been successfully submitted",
+        "congratulationsTitle": "congratulations",
+        "congratulationsText": "You`ve received a Registration Bonus! Explore the <a href=`/tasks`>Tasks</a> section for more ways to earn free rewards",
+        "congratulationsButton": "Play. Fun. Repeat!",
+        "diceAttentionText": "In auto mode there is a risk of increased rates",
+        "diceAttentionBack": "Back",
+        "registrationTitle": "registration",
+        "registrationText1": "I have read and agree to the <a href=`/terms`>Terms & Conditions</a> and confirmthat I am at least 18 years old",
+        "registrationText2": "I agree to receive marketing promotions from starsbet",
+        "registrationButton": "Start Playing",
+        "registrationValidation": "Please read and accept Terms & Conditions"
+    },
+    "profile": {
+        "title": "my profile",
+        "username": "username",
+        "usernameButton": "Edit",
+        "registrationDate": "Registration date",
+        "count": "Bets Count",
+        "wager": "Wager",
+        "statistic": "statistic",
+        "error": "Incorrect name"
+    },
+    "tasks": {
+        "title": "tasks",
+        "done": "This task is already done"
+    },
+    "wallet": {
+        "title": "wallet",
+        "depo": "deposit",
+        "withdraw": "withdraw"
+    }
+}

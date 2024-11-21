@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'SF Compact Display';
+    src: url('/fonts/SF Compact/SFCompactDisplay-Light.woff2') format('woff2'),
+        url('/fonts/SF Compact/SFCompactDisplay-Light.woff') format('woff');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'SF Compact Display';
+    src: url('/fonts/SF Compact/SFCompactDisplay-Regular.woff2') format('woff2'),
+        url('/fonts/SF Compact/SFCompactDisplay-Regular.woff') format('woff');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'SF Compact Display';
+    src: url('/fonts/SF Compact/SFCompactDisplay-Medium.woff2') format('woff2'),
+        url('/fonts/SF Compact/SFCompactDisplay-Medium.woff') format('woff');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'SF Compact Display';
+    src: url('/fonts/SF Compact/SFCompactDisplay-Bold.woff2') format('woff2'),
+        url('/fonts/SF Compact/SFCompactDisplay-Bold.woff') format('woff');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'SF Compact Display';
+    src: url('/fonts/SF Compact/SFCompactDisplay-Black.woff2') format('woff2'),
+        url('/fonts/SF Compact/SFCompactDisplay-Black.woff') format('woff');
+    font-weight: 900;
+}
+

@@ -1,0 +1,45 @@
+{
+  "name": "starsbet_front",
+  "version": "1.1.2",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/style-resources": "^1.2.1",
+    "@tonconnect/sdk": "^3.0.5",
+    "@tonconnect/ui": "^2.0.9",
+    "core-js": "^3.25.3",
+    "nanoid": "^2.1.11",
+    "nouislider": "^15.8.1",
+    "nuxt": "^2.15.8",
+    "nuxt-i18n": "^6.28.1",
+    "nuxt-lazy-load": "^1.2.9",
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
+    "sass": "^1.70.0",
+    "sass-loader": "^10.3.1",
+    "vue": "^2.7.10",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-custom-scrollbar": "^1.4.4",
+    "vue-number-animation": "^1.0.2",
+    "vue-page-transition": "^0.2.2",
+    "vue-puzzle-vcode": "^1.1.10",
+    "vue-qrcode-component": "^2.1.1",
+    "vue-server-renderer": "^2.7.10",
+    "vue-slide-up-down": "^2.0.1",
+    "vue-template-compiler": "^2.7.10"
+  },
+  "devDependencies": {
+    "@nuxtjs/style-resources": "^1.2.1",
+    "nuxt-compress": "^5.0.0",
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
+    "sass": "^1.70.0",
+    "sass-loader": "^10.2.0"
+  }
+}
