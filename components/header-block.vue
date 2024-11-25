@@ -8,7 +8,7 @@
         .balance 
             .balance__text(
                 @click="dropdown = !dropdown"
-            ) {{ balance[0] }}
+            ) {{ balance[currency ? 0 : 1] }}
             .balance__star(v-if="currency")
                 include ../assets/svg/star.svg
             .balance__star(v-else)
@@ -27,20 +27,22 @@
                 :duration="500"
             )
                 .balance.balance_dropdown 
-                    .balance__text(
-                        @click="dropdown = false, changeCurrency(true)"
-                    ) {{ balance[0] }}
-                    .balance__star(
-                        @click="dropdown = false, changeCurrency(true)"
-                    )
-                        include ../assets/svg/star.svg
-                    .balance__text(
-                        @click="dropdown = false, changeCurrency(false)"
-                    ) {{ balance[1] }}
-                    .balance__star(
-                        @click="dropdown = false, changeCurrency(false)"
-                    )
-                        include ../assets/svg/fstar.svg
+                    .balance__item
+                        .balance__text(
+                            @click="dropdown = false, changeCurrency(true)"
+                        ) {{ balance[0] }}
+                        .balance__star(
+                            @click="dropdown = false, changeCurrency(true)"
+                        )
+                            include ../assets/svg/star.svg
+                    .balance__item
+                        .balance__text(
+                            @click="dropdown = false, changeCurrency(false)"
+                        ) {{ balance[1] }}
+                        .balance__star(
+                            @click="dropdown = false, changeCurrency(false)"
+                        )
+                            include ../assets/svg/fstar.svg
         nuxt-link.profile(
             to="/profile"
         )
@@ -120,8 +122,12 @@ export default {
 
     &_dropdown {
         flex-wrap: wrap;
-        width: 67%;
-        padding: mobile-vw(4) 0;
+        width: 80%;
+        padding: mobile-vw(4)  mobile-vw(6);
+    }
+
+    &__item {
+        display: flex;
     }
 
     &__text {

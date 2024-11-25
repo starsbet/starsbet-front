@@ -7,6 +7,15 @@
         :class="{'input-block__area_small-padding' : button}"
     )
         input(
+            v-if="game"
+            v-model="input"
+			:type="type ? type : 'number'"
+			@input="$emit('input', input)"
+            @focus="focus = true"
+            @blur="gameInput($event.target.value), focus = false"
+        )
+        input(
+            v-else
             v-model="input"
 			:type="type ? type : 'number'"
 			@input="$emit('input', input)"
@@ -30,17 +39,32 @@
 
 export default {
     name: 'inputBlock',
-    props: ['text', 'disable', 'button', 'content', 'type', 'valid'],
+    props: ['text', 'game', 'disable', 'button', 'content', 'type', 'valid'],
 
     data() {
         return {
             input: '',
-            roll: true
+            roll: true,
+            focus: false
         }
     },
 
     created() {
         this.input = this.content ? this.content : 0 
+    },
+
+    methods: {
+        gameInput(e) {
+            this.input = e <= 2 ? 2 : e >= 98 ? 98 : e
+        }
+    },
+
+    watch: {
+        content(val) {
+            if(!this.focus) {
+                this.input = val
+            }
+        }
     }
 }
 
@@ -50,7 +74,6 @@ export default {
 .input-block {
 
     &_disable {
-    
         input {
             pointer-events: none;
         }

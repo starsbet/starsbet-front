@@ -6,7 +6,7 @@ export const state = () => ({
     token: null,
     initData: null,
     currency: true,
-    balance: [0.000456, 0.000456],
+    balance: [1000, 0],
     friends: 0,
     lang: null,
 });

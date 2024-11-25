@@ -11,9 +11,29 @@
             :class="{'tabs__selector_2' : activeTab}"
         )
     .dice__main
-        .dice__cube
-            img(src="~/assets/img/games/cube.png" alt="dice game cube")
-            .dice__points {{ points }}
+        .dice__cube(
+            :class="{'dice__cube_animation' : betAnimationFinish && betAnimation}"
+        )
+            img(
+                src="~/assets/img/games/cube.png" 
+                alt="dice game cube"
+            )
+            .dice__points(
+                v-if="!betAnimation"
+            ) {{ points }}
+            client-only(
+                v-if="betFrom !== null && betTo !== null"
+            )
+                number.dice__points.dice__points_animated(
+                    tag="span"
+                    ref="number"
+                    :class="{'dice__points_finished-animation' : betAnimationFinish && betAnimation}"
+                    :to="betTo"
+                    :from="betFrom"
+                    :format="theFormat"
+                    :duration="2"
+                    easing="power0.in"
+                )
         .dice__marks
             .mark(
                 v-for="i in [0, 25, 50, 75, 100]"
@@ -26,10 +46,15 @@
         input-block.roll(
             :text="roll ? 'Roll over' : 'Roll under'"
             :disable="false"
-            @roll="roll = $event"
+            :content="points"
+            :game="true"
+            @roll="roll = $event, setChance(points)"
+            @input="points = $event < 2 ? 2 : $event, setSlider($event)"
         )
         input-block.win(
             :text="$t('games.diceWinChance')"
+            :type="'text'"
+            :content="winChance"
             :disable="true"
         )
     auto-mode(v-if="activeTab")
@@ -39,6 +64,7 @@
         )
         input-block.bet(
             :text="$t('games.diceBetAmount')"
+            @input="amount = $event"
         )
         .default-button.dice__button(@click="startAuto()") {{ $t('games.diceStartAutoBet') }}
         .default-button.default-button_border.dice__button.dice__button_border(@click="stopAuto()") {{ $t('games.diceStopAutoBet') }}
@@ -46,16 +72,18 @@
         input-block.bet(
             :text="$t('games.diceBetAmount')"
             :disable="false"
+            @input="amount = $event"
         )
         .default-button.dice__button(@click="bet()") {{ $t('games.diceBet') }}
     .dice__error(
         :class="{'dice__error_active' : balanceError}"
-    ) {{ $t('games.diceError') }}
+    ) {{ amount === 0 ? 'Error! Bet Amount must be more than 0' : $t('games.diceError') }}
 </template>
 
 <script>
 import noUiSlider from 'nouislider';
 import 'nouislider/dist/nouislider.css';
+
 
 import { mapGetters } from "vuex";
 
@@ -74,6 +102,7 @@ export default {
     computed: {
 		...mapGetters({
 			returnInfo: "popup/returnInfo",
+			balance: "userData/balance"
 		})
 	},
 
@@ -82,7 +111,14 @@ export default {
             activeTab: 0,
             points: 50,
             roll: true,
-            balanceError: false
+            balanceError: false,
+            winChance: '50%',
+            betStart: false,
+            betFrom: null,
+            betTo: null,
+            betAnimation: false,
+            betAnimationFinish: false,
+            amount: 0,
         }
     },
     
@@ -119,11 +155,23 @@ export default {
         },
 
         bet() {
-            this.balanceError = true
+            if (this.amount <= 0) {
+                this.balanceError = true
 
-            setTimeout(() => {
-                this.balanceError = false
-            }, 1500);
+                setTimeout(() => {
+                    this.balanceError = false
+                }, 2000);
+            }
+            else if(this.balance[0] < this.amount) {
+                this.balanceError = true
+
+                setTimeout(() => {
+                    this.balanceError = false
+                }, 2000);
+            }
+            else {
+                this.animation()
+            }
         },
 
         startAuto() {
@@ -141,6 +189,104 @@ export default {
                 this.$store.commit("tooltip/deactivate")
             }, 1500);
         },
+
+        animation() {
+            this.betAnimation = true
+            this.betAnimationFinish = false
+            this.betTo = Number(this.points) >= 50 ? 0 : 100
+            this.betFrom = Number(this.points)
+            this.$nextTick(() => {
+                if(this.$refs.number) {
+                    this.$refs.number.restart()
+                }
+            })
+
+            setTimeout(() => {
+                clearInterval(interval)
+                clearTimeout(time1)
+                clearTimeout(time2)
+                clearTimeout(time3)
+                this.betTo = this.betFrom = null
+                this.betTo = 20.34
+                this.betFrom = Number(this.$refs.number.$el.innerText)
+                this.$nextTick(() => {
+                if(this.$refs.number) {
+                    this.$refs.number.restart()
+                }
+                setTimeout(() => {
+                    this.betAnimationFinish = true
+                    // this.betTo = this.betFrom = null
+                    // this.betAnimation = false
+                }, 2000);
+            })
+            }, 1250);
+            let time1, time2, time3 
+            time1 = setTimeout(() => {
+                this.betTo = this.betFrom = null
+                if(Number(this.points) >= 50) {
+                    this.animationTo100()
+                }
+                else {
+                    this.animationFrom100()
+                }
+                time2 = setTimeout(() => {
+                    if(Number(this.points) >= 50) {
+                        this.animationFrom100()
+                    }
+                    else {
+                        this.animationTo100()
+                    }
+                }, 2000);
+            }, 2000);
+
+            let interval = setInterval(() => {
+                this.betTo = this.betFrom = null
+                if(Number(this.points) >= 50) {
+                    this.animationFrom100()
+                }
+                else {
+                    this.animationTo100()
+                }
+                time3 = setTimeout(() => {
+                    if(Number(this.points) >= 50) {
+                        this.animationTo100()
+                    }
+                    else {
+                        this.animationFrom100()
+                    }
+                }, 2000);
+            }, 4000);
+        },
+
+        animationTo100() {
+            this.betTo = 100
+            this.betFrom = 0
+            this.$nextTick(() => {
+                if(this.$refs.number) {
+                    this.$refs.number.restart()
+                }
+            })
+        },
+
+        animationFrom100() {
+            this.betTo = 0
+            this.betFrom = 100
+            this.$nextTick(() => {
+                if(this.$refs.number) {
+                    this.$refs.number.restart()
+                }
+            })
+        },
+
+        theFormat(number) {
+            return number.toFixed(2);
+        },
+
+        setChance(val) {
+            this.winChance = !this.roll ? val + '%' : (100 - Number(val)).toFixed(2) + '%'
+            this.betTo = this.betFrom = null
+            this.betAnimation = false
+        }
     },
 
     watch: {
@@ -149,13 +295,39 @@ export default {
                 this.activeTab = val
             }
 
-        }
+        },
+
+        points(val) {
+            this.setChance(val)
+        },
     }
 }
 
 </script>
 
 <style lang="scss" scoped>
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes tilt-n-move-shaking {
+  0% { transform: translate(-54%,-45%) rotate(0deg); }
+  25% { transform: translate(-55%,-46%) rotate(2deg); }
+  50% { transform: translate(-54%,-45%) rotate(0deg); }
+  75% { transform: translate(-53%,-46%) rotate(-2deg); }
+  100% { transform: translate(-54%,-45%) rotate(0deg); }
+}
+
 .dice {
 
     &__main, &__wrapper {
@@ -178,6 +350,30 @@ export default {
     &__cube {
         position: relative;
         margin-bottom: mobile-vw(12);
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 46%;
+            left: 50%;
+            z-index: 0;
+            width: 60%;
+            height: 60%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px 10px #9B9B9B;
+            visibility: hidden;
+            opacity: 0;
+            transition: .5s ease;
+        }
+
+        &_animation {
+            &::before {
+                visibility: visible;
+                opacity: 1;
+                transition: .5s ease;
+            }
+        }
     }
 
     img {
@@ -185,6 +381,8 @@ export default {
         height: mobile-vw(94);
         object-fit: cover;
         margin: 0 auto;
+        position: relative;
+        z-index: 1;
     }
 
     &__points {
@@ -197,6 +395,17 @@ export default {
         color: #11152C;
         font-weight: 900;
         line-height: mobile-vw(16.7);
+        transition: .5s ease;
+
+        &_animated {
+            animation: tilt-n-move-shaking .3s linear infinite;
+            transition: .5s ease;
+        }
+
+        &_finished-animation {
+            transition: .5s ease;
+            animation: pulse 1.5s linear infinite;
+        }
     }
 
     &__marks {

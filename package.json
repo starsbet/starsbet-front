@@ -26,7 +26,7 @@
     "vue": "^2.7.10",
     "vue-awesome-swiper": "^4.1.1",
     "vue-custom-scrollbar": "^1.4.4",
-    "vue-number-animation": "^1.0.2",
+    "vue-number-animation": "^1.1.2",
     "vue-page-transition": "^0.2.2",
     "vue-puzzle-vcode": "^1.1.10",
     "vue-qrcode-component": "^2.1.1",

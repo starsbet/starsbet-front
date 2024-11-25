@@ -79,7 +79,7 @@
     },
     "profile": {
         "title": "my profile",
-        "username": "username",
+        "username": "Username",
         "usernameButton": "Edit",
         "registrationDate": "Registration date",
         "count": "Bets Count",
